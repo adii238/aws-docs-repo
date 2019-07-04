@@ -27,8 +27,5 @@ The IAM Policy documents are written in JSON language.
 While creating a new user, always make sure to copy the "Access Key ID" and "Secret access key" since this information is displayed only once.
 ##################################
 
-UID: Aditya 
-Access Key ID: AKIAJRU4EHSG257DNEXA 
-Secret Access key: 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
-Password: C!}-ts*@TJ$4
+
 ##################################
