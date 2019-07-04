@@ -1,0 +1,158 @@
+VPC 
+########
+
+VPC (Virtual Private Cloud):
+		Think of it as a virtual Data center in the cloud.
+		Its a private subsection of AWS that you control, in which you can place AWS resources (such as EC2 instances).
+		When you create an AWS account a default VPC is created for you.
+		Additionally, you can create a hardware VPN connection between your corporate data center and your VPC and leverage the AWS cloud as an extension
+		of your corporate data center. 
+		Consists of IGW (Internet gateway or VPG - Virtual Private Gateway), Route tables, NACLs (Access control lists), Subnets and Security groups.
+	
+###################################	
+Useful URL: http://cidr.xyz/    (site helps in visualizing the address range, first and last hosts, number of IPs 
+
+/28 - is the smallest IP range, gives only 16 hosts
+/16 - is the biggest IP range, gives 65,536 hosts 
+
+####################################
+AWS Global Infrastructure:
+-> AWS regions:
+              are grouping of AWS resources located in a specific geographical location. 
+              Regions comprise of multiple Availability Zones (AZ). 
+
+-> Availability Zone:
+					are physical AWS Data Centers.
+					Multiple AZs in a AWS region provide redundancy for AWS resources in that region. 
+####################################
+
+Internet Gateway: 
+			A combination of hardware or software that provides your private network with a route to the world outside (meaning Internet) of the VPC.
+			An IGW can be attached to a VPC.
+			1 VPC can only have 1 IGW and not more. 
+
+Virtual Private Gateway: is the way to connect in to AWS and then into our VPC using a VPN. Its the Amazon VPC side of a VPN connection.
+Customer Gateway: Your side of a VPN connection.
+
+####################################
+
+Route Table: 
+		contains a set of rules, called routes, that are used to determine where network traffic is directed.
+		The default VPC already has a main route table. 
+		Unlike an IGW you can have multiple active route tables in a VPC.
+		You cant delete a route table if it has "dependencies" (associated subnets).	
+		
+#####################################
+
+ When we create an AWS account, a default VPC is created for you. Including the standard components that are needed to make it functional.
+1) Internet Gateway
+2) A route table (with predefined routes to default subnets)
+3) A network access control list (with predefined rules for access)
+4) Subnets to provision AWS resources (such as EC2 instances)
+
+######################################
+
+1 subnet = 1 AZ 
+1 subnet cannot be in multiple AZ's.
+######################################
+
+What can you do with VPC:
+1. Launch instances in the subnet of our choosing 
+2. Assign custom IP address ranges in each subnet 
+3. Configure route tables between subnets
+4. Create Internet gateway and attach it to our VPC.
+**** We can have only 1 Internet Gateway/VPC 
+5. Much better security control over your AWS resources.
+6. Instance security groups.
+7. Subnet Network Access control lists (ACLs)
+########################################
+
+VPC Peering:
+1. Allows you to connect one VPC to another via a direct network route using private IP addresses.
+2. We can peer VPCs with other AWS accounts as well as with other VPCs in the same account.
+3. No transitive peering in VPC peering. Hub and spoke model.
+#########################################
+
+NACL:
+1. Network Access control list is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more 
+subnets.
+2. NACLs have "inbound" and "outbound" rules.
+3. Rules are evaluated based on "rule #" from "lowest" to "highest"
+4. When you create a NEW NACL by default ALL traffic is DENIED.
+5. The default NACL allows all traffic to the default subnets. 
+6. A subnet can only be associated with one NACL at a time.
+7. You can create a custom network ACL and associate it with a subnet. 
+   By default, each custom network ACL denies all inbound and outbound traffic until you add rules. 
+8. Each subnet in your VPC must be associated with a network ACL. If you dont explicitly associate a subnet with a network ACL, the subnet 
+   is automatically associated with the default network ACL.
+9. Block IP addresses using NACL and not Security Groups.
+10. NACLs work at the subnet level whereas Security Groups work at the instance level. 
+
+##########################################
+
+NAT:
+		NAT (Network Address Translation) is a process of changing the source and destination IP addresses and ports. 
+		Address translation reduces the need for IPv4 public addresses and hides private network address ranges. 
+		The process is usually done by routers or firewalls.
+		
+		NAT instance - is an outgoing technology from AWS.  
+		When creating a NAT instance we must disable source/destination checks.
+		NAT instance must be in a public subnet.	
+		NAT instances have a lot of deficiencies such as its a single instance in a single AZ.
+		Its an EC2 instance that can be set up if required.
+		As your network grows its tough to scale up as its limited by instance size. If you are bottlenecking, try increasing the instance size.
+		There must be a route out of the private subnet to the NAT instance, in order for this to work.
+		NAT instances are behind security groups.
+		Can also be used as bastion server (or jump server).
+		To remove the above mentioned issues AWS came up with NAT gateway.
+		Nat instance should either have a Public IP or an Elastic IP assigned to it.
+		Use VPC flow logs to capture the traffic.
+		
+		NAT Gateway - operates only on IPV4. (For IPV6 use an "Egress Only Internet Gateway")
+		Preferred by the enterprise.
+		No need for disabling source/destination checks.
+		Scale automatically up to 10Gbps.
+		No need to patch, less administrative overhead. 
+		Mandatory uses an Elastic IP when the gateway is created.
+		Not associated with security groups.
+		Have at least 1 NAT gateway in each AZ that you operate so that you can have HA.
+		Use VPC flow logs to capture the traffic.
+		
+################################################
+
+VPC Flow logs:
+			is a feature that enables you to capture info about the IP traffic going to and from network interfaces in your VPC.
+			Flow Log data is stored using Amazon Cloud Watch logs.
+			After you've created a flow log, you can view and retrieve its data in Amazon Cloudwatch logs.
+			Flow logs can be created at 3 levels:
+			-> VPC
+			-> Subnet 
+			-> Network Interface level 
+			You cannot tag a flow log.
+			
+#################################################
+
+Reserved IP addresses: The first 4 IP addresses and last IP address in each subnet CIDR block are not available for use. They cant be assigned to 
+					   any instance. For example in a subnet with CIDR block 10.0.0.0/24, the following IP addresses are reserved
+					   10.0.0.0 - Network address
+					   10.0.0.1 - Reserved by AWS for VPC router 
+					   10.0.0.2 - Reserved by AWS for DNS server 
+					   10.0.0.3 - Reserved by AWS for future use 
+					   10.0.0.255 - Network broadcast address. 
+					   Broadcast is not supported in a VPC hence the 255 address is reserved. 
+##################################################
+
+TIP:
+    1. Security groups act like a firewall at the instance level whereas NACLs are an additional layer of security that act at the subnet level. 
+    2. How many VPC's am I allowed in each AWS Region by default - 5 
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
