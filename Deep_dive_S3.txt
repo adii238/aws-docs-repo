@@ -1,0 +1,100 @@
+AWS Deep Dive - S3 
+######################
+
+1) S3 provides Developers and IT teams with secure, durable, highly scalable object storage.
+    S3 availability is 99.99% and Durability is 11 9s (99.9999999%)
+2) S3 is a safe place to store your files. ****Objects are simply files.
+3) It's object based storage.
+	- Data is spread across multiple devices and facilities.
+	- Objects are things like photos, videos, files etc. Basically flat files.
+	- You cant install an OS OR run a DB on object based storage.
+	- For OS and DB you need Block based storage.
+4) In S3 files can be from 0 Bytes to 5Tb.
+5) Files are stored in buckets.
+	Think of buckets as folders.
+	Buckets are a universal name space i.e. while creating a bucket the name has to be unique and not in use by anyone else. 
+6) S3 is a key value store.
+7) Objects consist of the following:
+- Keys (Name of the object)
+- Value (The data, which is made up of sequence of bytes)
+- Version ID (Imp for versioning)  
+- Metadata (Data about data you are storing)
+- Subresources 
+   - Access control lists 
+8) S3 is a universal namespace, that is, names must be unique globally.
+9) You will be provided an http url like below:
+   https://s3-eu-west-1.amazonaws.com/acloudguru
+	It is important to remember that S3 urls will always start with s3-* format.
+10) S3 Storage classes/tiers:
+	- S3 (durable, immediately available, frequently accessed)
+	- S3-IA (durable, immediately available, infrequently accessed)
+	- S3 - RRS (Reduced Redundancy storage) (data that is easily reproducible, such as thumb nails etc).
+    	RRS should not be used for mission critical data.
+		Durability of RRS is 99.99% 
+	- Glacier - Archived data, where you can wait 3 to 5 hours before accessing. Cheapest of storage classes.
+11) S3 successful uploads will generate an HTTP 200 status code.
+12) Amazon S3 Transfer acceleration - enables fast, easy and secure transfers of files over long distances between your end users and an S3 bucket. Transfer 
+	Acceleration takes advantage of Amazon CloudFronts globally distributed edge locations. As data arrives at an edge location, data is routed to Amazon S3 
+	over an optimized network path.
+13) Encryption
+		-> Client side encryption
+		-> Server side encryption 
+		     Server side encryption with Amazon S3 Managed Keys (SSE-S3)
+			 Server side encryption with KMS (SSE-KMS)
+			 Server side encryption with Customer provided keys (SSE-C)
+14) Control access to buckets using either a bucket ACL or using Bucket Policies.
+15) S3-Versioning: 
+	Be careful with versioning in S3. 
+	Versioning basically allows for multiple versions of the same file to coexist on S3. 
+	You can only enable but not disable versioning, versioning can be suspended.
+	So if versioining is enabled and if you upload a lot of large files on S3 then it quickly can consume a lot of space on S3 incurring charges.
+    Great backup tool.
+	Scenario based: 
+	How do you protect any object to be accidentally deleted in S3----Versioining's MFA Delete capability, uses MFA, it can be used to provide an additional layer of security.
+16) Cross Region replication: In S3 we can setup a bucket in such a way that the contents of that bucket can be replicated to another bucket in a different 	region. 
+	-> For Cross region replication - versioining must be enabled on both source and destination buckets.
+	-> Regions must be unique
+	-> Files in an existing bucket are not replicated automatically. All subsequent updated files will be replicated automatically. 
+	-> As of now, you cannot replicate to multiple buckets.
+	-> Delete markers are replicated.
+	-> Deleting individual versions or delete markers will not be replicated.
+17) S3 - Lifecycle Management Lab
+    -> Create a bucket-->Create a lifecycle rule-->Data after 30 number of days moves to S3 -IA--->Data after 30+30 number of days moves to Galcier for archival
+	----->Finally after x+y+z days the data is permanantly deleted.
+	-> Can be used in conjunction with versioining 
+	-> Can be applied to current versions and previous versions
+18) S3 - Security 
+    -> By Default all newly created buckets are private.
+	-> You can set up access control to your buckets using:
+	   - Bucket policies
+	   - Access control lists 
+	-> S3 buckets can be configured to create access logs which log all requests made to the S3 bucket. This can be done to another bucket.
+	S3 - Encryption
+	-> In Transit (data) - SSL/TLS
+	-> At Rest (data) 
+	   Server side encryption 
+	   - S3 Managed keys - SSE S3 
+	   - AWS Key management service, Managed Keys - SSE-KMS 
+	   - Server side encryption with customer provided keys - SSE-C 
+	-> Client Side encryption 
+19) S3 - Static Website 
+         We can use S3 to host static websites.
+		 It's serverless.
+		 Very cheap and scales automatically.
+		 STATIC only content and cant host dynamic websites.
+20) S3 Consistency model 
+       Has Read after Write consistency for PUTS of new objects.
+S3 has eventual consistency for which HTTP Methods?---Overwrite PUTS and DELETES 
+	 
+21) Exam tips:
+        Write to S3 - HTTP200 code for a successful write.
+		We can load files to S3 much faster by enabling multipart upload.
+		Read the S3 FAQ before exam as its asked a lot. 
+22) Extra Info:
+Akamai Technologies, Inc. is an American content delivery network (CDN) and cloud service provider headquartered in Cambridge, Massachusetts, in the United States. Akamai's content delivery network is one of the world's largest distributed computing platforms, responsible for serving between 15% and 30% of all web traffic. The company operates a network of servers around the world and rents out capacity on these servers to customers who want their websites to work faster by distributing content from locations close to the user.
+
+Akamai can be compared to S3 today just because of the sheer size of S3. 
+	
+	
+
+   

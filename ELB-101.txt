@@ -1,0 +1,21 @@
+Elastic Load Balancing :
+############################
+
+ELB: essentially distributes traffic between EC2 instances that are associated with it.
+	 ELB detects unhealthy instances and routes traffic only to healthy instances.
+	 This increases Fault Tolerance of your application.
+	 
+	 Free tier usage is not available for ELB.
+	 Charges are based on ELB usage per hour.
+	 ALso you are charged based on each Gb of data transferred through the Load Balancer.
+	 Prices may vary depending upon region.
+	 	 
+	 3 types of ELB available:
+	 1. Classic LB  - Oldest 
+	 2. Application LB - Latest 
+	 3. Network LB - Strongest 
+
+-> ELB and other load balancers can be created by going under EC2 options.
+-> Free tier use is not available for ELB.
+
+

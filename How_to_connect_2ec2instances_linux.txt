@@ -1,0 +1,15 @@
+Steps to connect 2 ec2-instances (linux) and make them communicate with each other
+#####################################################################################
+
+1) Make sure both instances are part of same security groups.
+https://stackoverflow.com/questions/32864243/ec2-instances-cannot-ping-each-other
+2) make sure both servers have the same .pem file and then connect via private IP 
+https://superuser.com/questions/1135766/how-to-ssh-from-one-ec2-instance-to-another 
+
+[root@ansible-server ~]# ssh -i /home/ec2-user/Ansible-key-pair.pem  172.31.89.7
+Please login as the user "ec2-user" rather than the user "root".
+
+^CConnection to 172.31.89.7 closed.
+[root@ansible-server ~]# ssh -i /home/ec2-user/Ansible-key-pair.pem  ec2-user@172.31.89.7
+Last login: Fri Apr 20 23:11:21 2018 from 103.77.3.51
+[ec2-user@ansible-client ~]$

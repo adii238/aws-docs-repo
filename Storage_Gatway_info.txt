@@ -1,0 +1,31 @@
+Storage Gateway AWS
+####################
+
+AWS Storage gateway is a service that connects an on premises software appliance with cloud based storage to provide seamless and secure integration between 
+an organizations on prem IT environment and AWS's storage infra. The service enables you to securely store data to the AWS cloud for scalable and cost effective 
+storage.
+
+-> Basically an AWS virtual appliance is deployed in the on prem datacenter (can be deployed on vmware or hyper-v) which acts as the storage gateway to AWS.
+
+ ----------------------              -------------------- 
+ |    AWS Storage G/W |              |					|
+ |                    |              |					|	
+ |                    |------------> |	AWS				|
+ |Your DC             |              |					|
+ |                    |              |					|
+ ----------------------              --------------------
+-> AWS Storage Gateway's software appliance is available for download as a virtual machine (VM) image that you install on a host in your datacenter.
+Storage G/W supports either VMWare ESXi or MS Hyper-V. 
+Once you have installed the gateway and associated with your AWS account through the activation process,
+you can use the AWS Mgmt console to create the storage g/w that's right for you.
+
+-> 4 Types of storage gateways:
+   1) File Gateway (NFS) - Object storage, flat files like word docs, images and videos etc. Stored directly on S3.
+   2) Volume Gateway (iSCSI) - Block based storage 
+      - Stored Volumes: Entire dataset is stored on site and is asynchronously backed up to S3.
+	  - Cached Volumes: Entire dataset is stored on S3 and the most frequently accessed data is cached on site. 
+   3) Tape Gateway (VTL) - Used for backup and uses popular backup applications like Netbackup, Veeam etc.
+   
+   
+ 
+

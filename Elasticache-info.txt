@@ -1,0 +1,31 @@
+Elasticache:
+##################
+
+Elasticache is a web service that makes it easy to deploy, operate and scale an in-memory cache in the cloud. The service improves the performance of web 
+applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slow disk-based databases.
+
+-> Elasticache supports 2 open source in-memory cache engines:
+0 Memcached
+0 Redis 
+
+-> Elasticache can be used to significantly improve latency and throughput for many "read-heavy" application workloads (such as social networking, gaming, 
+media sharing and Q&A portals) or compute intensive workloads (such as a recommendation engine).
+
+Caching improves application performance by storing critical pieces of data in memory for low latency access. Cached info include the results of I/O intensive
+database queries or the results of computationally intensive calculations.
+
+*** Memcached: is a widely adopted memory object caching system. Elasticahe is protocol compliant with Memcached, so popular tools that you use today with 
+memcached environments will work seamlessly with the service.
+
+*** Redis: Popular open source in memory key value store that supports data structures such as sorted sets and lists. 
+Elasticache supports Master/Slave replication and multi-AZ which can be used to achieve cross AZ redundancy.
+
+*** One of the key diff between "Memcached" and "Redis" in AWS is that "Redis" supports multi-AZ whereas Memcached does not.
+
+-> Exam tips:
+Elasticache is a good choice if your DB is read heavy and not prone to frequent changing.
+
+Redhsift is a good answer if your DB is stressed because management keeps running OLAP transactions on it etc.
+
+
+
