@@ -1,0 +1,24 @@
+AUTOSCALING 101 
+#################
+
+Auto-scaling:
+			automates process of adding(scaling up) OR removing (scaling down) EC2 instances based on traffic demand for your application. 
+			helps you ensure that you have the correct number of Amazon EC2 instances available to handle the load for your application. 
+
+-> We create collection of instances called Auto-scaling groups.
+-> Auto-scaling can span multiple subnets and multiple AZ.
+
+Pricing/Cost:
+-> Auto-scaling is free to use. However - 
+-> You will be charged for the resources that Auto-scaling provisions. 
+
+Creating an ASG (Auto-scaling group):
+				Auto-scaling options are available under EC2 just as ELB.
+				
+				For creating an ASG we need to set up a "Launch configuration" and "Auto-scaling group".
+				To create a launch configuration 
+				-> Select an AMI 
+				-> Selct an Instance type 
+				-> Create launch configuration
+				-> Select/Add storage type 
+				-> Configure Security groups
