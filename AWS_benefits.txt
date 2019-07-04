@@ -1,0 +1,53 @@
+AWS Benefits:
+######################
+
+1) Pay as you go model, reduced capex since upfront investment in infra is reduced
+2) Stop guessing capacity:
+-> Scale up and down dynamically 
+-> Future expansion and growth can be done easily
+3) Increased speed and agility 
+4) Stop spending money on datacenter running and management 
+5) Go global in minutes
+6) Renowned customers on AWS - Netflix, Coursera, Unilever, Expedia, Adobe, Vodafone and many more. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
