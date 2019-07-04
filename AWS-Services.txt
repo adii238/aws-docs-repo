@@ -1,0 +1,212 @@
+AWS Basics and the 10000 ft overview 
+###########################################
+
+
+
+AWS Global Infrastructure:
+###########################
+-> AWS region is a geographical area. Each region consists of 2 or more availability zones.
+-> AZ - Availability Zone, is simply a datacenter. 
+AZ is one or more discrete data centers, ecah with redundant power, networking and connectivity, housed in separate facilities.
+-> Edge locations - are endpoints for AWS which are used for caching content. Typically this consists of "CloudFront", Amazon's Content delivery Network (CDN).
+There are many more Edge locations than regions. 
+
+
+COMPUTE:-
+#####################
+EC2 (Elastic Compute Cloud) - 
+Use the "User Data" script during "Review and Launch" phase during EC2 instance creation to do any post install actions. 
+Eg: yum update -y  to be run on any server after its created. 
+++ Reserved Instances
+++ Spot instances 
+
+Lightsail - Amazon's VPS service. Virtual Private server. Will simply provision you a server with a fixed IP that you can RDP or SSH into. 
+
+Elastic Container Service (ECS) - Run and manage Docker container service.
+
+Lambda - AWS service allows you to run code without having to worry about provisioning any underlying resources (such as virtual machines, databases, etc.)
+Using lambda we can create serverless websites. 
+
+Elastic Beanstalk - basically for Dev who don't understand underlying infra. This service will provision things like ec2 instances, load balancers etc. For Dev they don't have to worry about underlying infra. 
+
+Batch - Used for batch computing in cloud. 
+
+
+Management Tools:-
+#####################
+Trusted advisor - is a facility provided by AWS to provide cost optimization, security alerts and recommendations to AWS customers.
+
+Cloud Watch - Amazon CloudWatch monitors operational and performance metrics for your AWS cloud resources and applications. Can be used to right size an EC2 
+instance. 
+
+Cloud Formation - its a way of scripting infrastructure. Code can be reused. We can take a cloud formation template and deploy a wordpress site or sharepoount site and more.
+
+CloudTrail - Used to log changes to your AWS environment. Its very important from security point of view. Whatever you are doing on the AWS console that can be captured by CloudTrail. 
+
+Config -  Monitors configuration of your entire AWS environment. 
+
+OpsWorks - uses Chef and Puppet. Way of automating your environment. 
+
+ServiceCatalog - for IT services. 
+
+Systems manager - typically used for EC2 instances. We can apply patches to 1000s of systems.
+
+ManagedServices - AWS has started providing this service now. AWS manages the whole infra on your behalf. 
+
+
+NETWORKING:-
+#####################
+VPC (Virtual Private Cloud) - configure AZ, firewall, network CIDR address ranges, ACLs, route table etc. ###Extremely important from exam perspective. Need to know VPC inside out to clear CSA Associate.########
+Route 53 - DNS service
+Cloud Front - Amazons content delivery network. If users are in Australia and image files are stored in London. So Amazon provides a cached edge location in Australia so that users don't have to face latency while accessing those files. 
+Direct Connect - running a dedicated line from your office to Amazon Datacenter.
+API Gateway - Essentially is a service to create your own APIs for other services to talk to. 
+
+
+STORAGE:-
+#####################
+-> Simple Storage Service (S3) - Uses concept of bucket. You can create bucket in S3.
+An S3 bucket can be connected to a Linux EC2 instance using https://cloudkul.com/blog/mounting-s3-bucket-linux-ec2-instance/ 
+-> AWS Glacier - For long term storage for data archiving and backup. Its AWS's lowest cost storage solution.
+Both S3 and Glacier provide several encryption options.
+Both provide 99.999999999% Durability (i.e. 11 9) 
+-> EFS - Elastic File Service - Amazon EFS is elastic; growing and shrinking automatically as you add and remove files. Mounted on EC2 via the NFSv4.1 
+protocol.
+-> Snowball - Way to bring in large amounts of data into AWS datacentre. Essentially AWS sends you a device to upload all your data into onto the snowball device
+and ship it back to AWS. If you have Terrabytes of data then this solution can be used as an alternative to transferring your data.
+-> Storage Gateway - are essentially virtual appliances installed in datacenter or your office and they replicate information to S3.
+
+
+DATABASE:-
+#####################
+-> Amazon RDS - (relational database) supports MSSQL, MySQL, Oracle, PostgreSQL. We can create DB instances.  Amazon has its own DB called Aurora. 
+-> Amazon Dynamo DB - (non relational database) Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale. Its flexible data model and reliable performance make it a great fit for mobile, web, gaming, ad-tech, IoT, and many other applications.
+-> Amazon Redshift - Datawarehouse and Business intelligence service. 
+-> Elasticache - is a caching service for your database services.
+
+
+Security, Identity and Compliance
+##################################
+IAM - Identity and Access management.  
+Cognito - Authentication service which gives temporary access to mobile devices 
+GuardDuty - Monitors malicious activity on your AWS account.
+Inspector - Install agent on your EC2 instance. Generates report on vulnerabilities. 
+Macie - Scans your S3 bucket and looks for PII.  
+Certificate Manager - Way of managing your SSL certificates. 
+Cloud HSM - Hardware Security Modules 
+Directory Services - Way of integrating your Microsoft AD services with AWS services 
+WAF - Web Application Firewall. Layer 7 firewall. Stops cross site scripting, SQL injection. Looks at application layer and analyses it.  
+AWS Shield - Prevents DDOS attacks. 
+Artifact - Great for audit and compliance. Allows you to download things like SOC controls, PCI controls etc.
+
+
+MIGRATION:-
+####################
+-> AWS migration hub - tracking service for applications that are being migrated. Visualizing your migrations.
+-> Application Discovery service - Automated set of tools, its a way of tracking application dependencies.
+-> Database migration service - Migrate a DB from "on prem" to AWS. 
+-> Server migration service - Migrate your virtual/physical servers to AWS cloud. 
+-> Snowball - For migrating large amounts of data into the cloud.
+
+
+Developer Tools:-
+#####################
+-> CodeStar - Way of project managing your code. Way of collaborating with other developers. 
+-> Code Commit - essentially a way of storing your code. Source control service.
+-> Code Build - Once code is ready, code build will compile the code for you, run tests against it and will produce software packages which are ready to deploy.
+-> Code Deploy - Deployment service, automates application deployment to EC2 instances. 
+-> Code Pipeline - Continuous delivery service 
+-> X-Ray - Debug and analyze server less applications. 
+-> Cloud 9 - it's an IDE from AWS.
+
+
+MACHINE LEARNING:-
+########################
+Sage Maker - uses Deep learning.
+Comprehend -
+DeepLens - Hardware device, artificially intelligent and aware camera.  
+Lex - Way of communicating with customers. 
+Machine Learning -  
+Polly - Text to speech engine 
+Rekognition - 
+Amazon Translate - 
+Amazon Transcribe - Automatic speech recognition. 
+
+
+ANALYTICS:-
+####################
+Athena - 
+EMR - Elastic Map Reduce, AWS compute service is specifically designed to assist you in processing large data sets.  
+Cloud Search -
+Elastic Search Service - 
+Kinesis - AWS service is used for collating large amounts of data streamed from multiple sources
+Kinesis Video Streams -
+Quick Sight -
+Data Pipeline - 
+Glue - 
+
+
+MOBILE SERVICES:-
+###################
+Mobile Hub - 
+Pinpoint - 
+AWS AppSync - 
+Device Farm - Testing your app on android, ios devices etc.
+Mobile Analytics - 
+
+
+AR/VR (Augmented Reality/Virtual Reality):-
+#############################################
+Sumerian 
+
+
+Application Integration:-
+###########################
+Step Functions - 
+Amazon MQ - 
+SNS - Notification service. 
+SQS - Way of decoupling your infrastructure 
+SWF - Simple Work flow Service 
+
+
+Customer Engagement:-
+#######################
+Amazon Connect - Contact Center as a service. Its like having your own call center in the cloud. 
+Simple Email Service - Emailing service from Amazon. 
+
+
+Business Productivity:-
+#######################
+Alexa for Business - 
+Chime - Used for video confrencing. Uses very low bandwidth.
+Work Docs - Its like dropbox for AWS. Way of safely and securely storing your work related documents.
+Work Mail - Sort of like Office365. 
+
+
+Desktop and Application Streaming:-
+####################################
+Workspaces - Is the VDI solution from AWS. Provides virtual desktop on your device through the cloud.
+AppStream2.0 - Is the Citrix like solution. Streams the application to your device. 
+
+
+IOT:-
+#######
+iOT - 
+iOT Device Management - 
+Amazon FreeRTOS - OS for your micro controllers
+Greengrass - 
+
+
+Game Development:-
+####################
+GameLift - Service to help you develop games.  
+
+
+Media Services:-
+##################
+Elastic Transcoder - Takes video and resizes it so that video rendering is suitable on different type of devices such as mobile computer etc.
+Media convert -
+Media Live - New service introduced in 2017, will not feature in exam.
+Media Package - New service introduced in 2017, will not feature in exam.
+Media Store - New service introduced in 2017, will not feature in exam.
+Media Tailor - New service introduced in 2017, will not feature in exam.

@@ -1,0 +1,22 @@
+CDN and Cloudfront:
+######################
+
+CDN: Content delivery network is a system of distributed servers that deliver webpages and other webcontent to a user based on the geographic locations of the user, the origin of the webpage and a content delivery server.
+ 
+Cloudfront:
+-> Edge location: is the location where content will be cached. 
+   Around 50 edge locations in the world currently.
+   Edge locations are not just read only, we can write to them as well.
+-> Origin: This is the origin of all the files that the CDN will distribute. 
+   This can be either an S3 bucket, an EC2 instance, an Elastic Load balancer or Route53.
+-> Distribution: This is the name given the CDN which consist of a collection of edge locations.
+   - Web Distribution -  Typically used for websites
+   - RTMP - Used for media streaming, flash files. 
+
+Amazon Cloudfront can be used to deliver your entire website including dynamic, static, streaming and interactive content using a global network of edge locations.
+Requests for your content are automatically routed to the nearest edge location, so content is delivered with best possible performance.
+
+-> Edge locations are not just Read only, you can write to them too.
+-> Objects are cached for the life of the TTL (Time to live)
+-> You can clear cached objects but you will be charged.
+

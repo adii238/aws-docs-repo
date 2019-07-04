@@ -1,0 +1,86 @@
+Databases 101
+##################
+TIP: Read the FAq on RDS 
+
+What is relational database: 
+-> A database structured to recognize relations between stored items of information.
+-> Uses SQL (structured query language) to retrieve the data. 
+Examples - 
+1. MS SQL server, 
+2. Oracle 9i, 10g etc
+3. Mysql,
+4. PostgresSql 
+5. MariaDB
+6. Amazon AURORA
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+What is a No SQL database:
+Dynamo DB  is a NoSQL database service. 
+Dynamo DB can replace (or is very similar to):
+1) Mongo Db
+2) Cassandra Db
+3) Oracle NoSQL 
+
+Dynamo DB: Stores related data in JSON-like, name-value documents. Its typically used for non structured data such as cataloging documents.  
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+What is Data Warehousing: 
+-> Used for business intelligence.
+-> Tools like Cognos, Jaspersoft, SQL Server Reporting services, Oracle Hyperion, SAP Netweaver.
+-> Used to pull in very large and complex data sets. Usually used by management to do queries on data (such as current performance vs targets etc).
+-> Redshift is Amazon's Data Warehouse product.
+-> Data warehousing databases use different type of architecture both from a database perspective and infrastructure layer.   
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+What is Elasticache:
+-> Is a webservice that makes it easy to deploy, operate and scale an in memory cache in the cloud. The service improves the performance of web apps by 
+allowing you to retrieve info from fast, managed, in memory caches, instead of relying entirely on slower disk based databases.
+-> Elasticache supports 2 open source in-memory cache engines:
+0 Memcached
+0 Redis 
+  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+What is OLTP: Online transaction processing 
+What is OLAP: Online Analytics processing 
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Read Replicas: used for distributing the Production database read workload. With read replicas you get performance improvement.
+If you have an application which has a lot of read workload its better to distribute the read workload from Prod Db to Read replica.
+
+***Amazon Aurora - is not part of AWS free tier. 
+***In AWS there is no GUI to access the database instances so we have to rely on third party tools like "MySQL Workbench" 
+
+#########################################################################
+
+Dynamo DB: is a fast and flexible NoSQL db service for all applications that need consistent, single-digit miilisecond latency at any scale. Its a fully managed 
+db and supports both document and key-value data models. Its flexible data model and reliable performance makes it a great fit for mobile, web, gaming 
+ad-tech, IOT and many other applications. 
+-> Is stored on SSD storage
+-> Spread across 3 geographically distinct data centers
+-> Eventual consistent reads (default)
+-> Strongly consistent reads 
+-> Highly scalable, when you want to scale up DynamoDB it doesn't require a downtime but with RDS if you scale up then you do need downtime. 
+
+##########################################################################
+
+Redshift: is a fast and powerful, fully-managed, petabyte scale datawarehouse service in the cloud. 
+Customers can start small with $0.25/hr with no commitments or upfront costs and scale to a petabyte or more for $1000/tb/year, which is less than a tenth
+of most other datawareshousing solutions. 
+
+Redhsift configuration - 2 types
+1) Single node with upto 160Gb of data storage
+2) Multi node 
+-> Leader node (manages client connections and recieves queries) 
+-> Compute node (store data and perform queries and computations). Upto 128 compute nodes. 
+
+RedShift has Columnar Data storage, instead of storing data as a series of rows, amazon redshift organizes the data by column.
+
+###############################################################################
+
+What happens to the I/O operations while you take a database snapshot 
+Ans: I/O operations to DB are suspended for duration of snapshot.
+
+In RDS when using multiple availability zones, can you use the secondary database as an independent read node? 
+Ans: NO 
+
+
