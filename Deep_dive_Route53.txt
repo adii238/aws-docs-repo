@@ -1,0 +1,62 @@
+ROUTE53 Deep Dive
+######################
+
+Route53 is the DNS service provided by AWS.
+DNS: Name to IP mappings
+A record: Name to IP record in a zone file 
+PTR record: IP to name record (reverse of A record)
+SOA record: Start of authority record 
+TLD: Top level Domain, they are .com, .in, .net etc.
+MX record: Mail exchange record, its the record of your mail server.
+CNAME record: Canonical Name record, they prove convenient when running multiple services (like an FTP server and a webserver; each running on different ports) from a single IP address. One can, for example, point ftp.example.com and www.example.com to the DNS entry for example.com, which in turn has an A record which points to the IP address. Then, if the IP address ever changes, one only has to record the change in one place within the network: in the DNS A record for example.com. 
+CNAME records must always point to another domain name, never directly to an IP address.
+
+Example in zone file:
+NAME                    TYPE   VALUE
+--------------------------------------------------
+bar.example.com.        CNAME  foo.example.com.
+foo.example.com.        A      192.0.2.23
+ 
+ALIAS record: 
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+***In Route53 - There are 50 domain names available by default, however it is a soft limit and can be raised by contacting AWS support
+***Elastic IP address: An Elastic IP address is a static IPv4 address designed for dynamic cloud computing. An Elastic IP address is associated with your AWS account. With an Elastic IP address, you can mask the failure of an instance or software by rapidly remapping the address to another instance in your account.
+***Route53 is also used for domain registration with AWS.
+***We can create an Alias record in Route53 to point to our ELB (elastic load balancer) instead of pointing to our web server IPs.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Different Routing types on AWS:
+1) Simple routing 
+2) Weighted routing 
+3) Latency based routing 
+4) Failover routing
+5) Geolocation routing 
+6) Multivalue answer routing 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1) Simple routing: 1 record with multiple IP addresses.
+We create 1 A record mapping to multiple IP addresses. 
+For example if you host a simple web page in 3 different AWS regions like Sydney, Mumbai and Virginia and the you create an A record like example.com mapping to 3 different IPs for Sydney, Mumbai and Virginia. Once you hit example.com you can be directed to any of the 3 Regions randomly. We cant do health checks in simple routing. 
+
+2) Weighted Routing: This policy lets you split traffic based on different weights assigned. This is distributing your web traffic based on your site usage and site users. 
+For example if 25% of site users are in Virgina region and 75% are London region then we will create a policy that will be 25%(Virginia) + 75%(London).
+The distribution of load should always add upto 100. 
+
+3) Latency based routing: allows you to route your traffic based on the lowest network latency for end user (ie which region will give them the fastest response time).
+For example - you have a user in South Africa who is connecting to your site.
+He is getting 54ms latency when he connects to "EU-West-2" and gets 300ms latency when he connects to "AP-Southeast-2".
+In such a situation he will be directed to the one with low latency i.e. to EU-West-2.
+
+4) Failover Routing policy: This policy is used when you create an Active/Passive setup. For example- your primary site is in "EU-West-2" and your DR site is 
+in "AP-Southeast-2". 
+R53 will monitor the health of your primary site using a health check. 
+While creating a failover routing policy its required to create a health check first.
+The health check will monitor the health of your primary site. If primary site goes down then R53 will redirect the traffic to your secondary site.
+
+5) Geolocation routing: lets you choose where your traffic will be sent based on the geographic location of your users (ie location from which DNS queries originate). For ex- European users will be routed to EU region and US customers to be routed to US region. 
+
+6) Multivalue answers routing: lets you configure Amazon Route 53 to return multiple values, such as IP addresses for your web servers, in response to DNS queries. You can specify multiple values for almost any record, but multivalue answer routing also lets you check the health of each resource, so Route 53 returns only values for healthy resources.This is not a substitute for load balancer, the ability to return multiple health-checkable IP addresses in response to DNS queries is a way to use DNS to improve availability and load balancing.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+

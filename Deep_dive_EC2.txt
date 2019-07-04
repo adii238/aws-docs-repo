@@ -1,0 +1,109 @@
+EC2_Deep_Dive
+####################
+
+Elastic Compute Cloud - is a web service that provides resizable compute capacity in the cloud.
+						It allows us to build and boot new server instances in minutes. 
+						EC2 is scalable, increase or decrease based on your usage.
+						Eliminates need for investing in hardware upfront.
+						Your virtual computer in the cloud.
+
+#########################						
+
+Components of EC2:
+					AMIs (Linux or Windows)
+					Instance type (Processing power)
+					EBS (local storage)
+					IP address
+					Security Groups (security)
+					RAM 
+##########################
+
+EC2 pricing options:
+1. On Demand - 			allows you to pay a fixed rate by the hour (or by second) with no commitment. 
+						Is the most expensive purchasing option. 
+						Is also the most flexible purchasing option. 
+						
+2. Reserved instances - provides you capacity reservation, offers a significant discount on hourly prices. 
+						You can purchase for 1 or 3 year terms.
+						You can select to pay upfront, partial upfront, no upfront. 
+
+
+3. Spot instances - 	allows you to bid whatever price you want for instance capacity, providing for even greater savings if your applications 
+						have flexible start and end times.
+						It can be compared to a stock market for instances. 
+						Spot prices fluctuate based on supply and demand in spot marketplace.
+						You bid for an instance and only pay for and use that instance when the spot price is "equal to or less than" your bid price.
+						
+4. Dedicated Hosts - 	Physical EC2 servers dedicated for your use. Dedicated hosts can help you reduce your costs by allowing you to use your existing 
+						server bound software licenses.
+###########################
+
+Use Cases for Instances:
+
+On Demand - 
+			
+
+Reserved Instances - 
+			Applications with steady state and predictable usage.
+			Applications that require reserved capacity.
+			Up front payments can be done to reduce costs further.
+			
+########################			
+
+AMI (Amazon Machine Image): It's a preconfigured package required to launch an EC2 instance.
+							Includes an OS, software packages and other required settings.
+							We can create our own AMIs when required.
+							When we create an AMI we are essentially creating a template that can be used to launch another EC2 instance.
+														
+							AMI components:
+							1. Root volume template (OS + Application software)
+							2. Launch permissions 
+							3. Block device mapping (EBS hard drive mapping)
+														
+							AMI categories:
+							1. Community AMIs
+							2. AWS marketplace AMI
+							3. My AMIs
+###################################################
+
+Instance Type: Is the CPU (compute power) of your instance.
+			   When you think of instance type think of Processor power or type of CPU.
+
+Instance type components:
+				1. Family - General purpose, Compute Optimized, Memory optimized, Storage Optimized, GPU Compute 
+				2. Type - t2.micro, t2.small, t2.medium, m4.large etc.  
+				3. vCPUs - No. of vCPUS in use. 
+				4. Memory (GB) - Amt. of memory in use. 
+				5. Instance storage (GB) 
+				6. EBS OPtimized available 
+				7. Network Performance 
+              
+###################################################
+
+EBS (Elastic Block store): is a storage volume for an EC2 instance. 
+						   It provides block level storage volumes for use with EC2 instances.
+
+						   IOPS = Input/Output operations per second
+						   That is Amount of data that is written or read from EBS per second. 
+						   More IOPS means better volume performance (faster read/write speeds).
+
+Every EC2 instance must have a root volume, which may or may not be EBS. 	
+By Default EBS volumes are set to be deleted when the instance is terminated. However you can choose to have EBS volumes persist after termination.
+During the creation of an EC2 instance (or afterwards) you can add additional EBS volumes to the instance.
+				   
+#####################################################					   
+Snapshot: is an image of an EBS volume that can be stored as a backup of the volume OR used to create a duplicate. 
+		  A snapshot is not an active EBS volume.
+		  We cant attach or detach a snapshot to an EC2 instance. 
+		  To restore a snapshot, you need to create a new EBS volume using the snapshot as its template. 
+		  A snapshot can be copied to different AWS regions for creating volumes. 
+		  To create a snapshot for an Amazon EBS volume that serve as root devices, you should stop the instance before taking the snapshot.
+		  Snapshots of encrypted volumes are encrypted automatically.
+		  You can share snapshots only if they are unencrypted.
+
+#####################################################		  
+Security Groups: are very similar to NACLs in that they allow/deny traffic. 
+				 Security groups are found on the "instance level" (as opposed to subnet level).
+				 A security group acts as a virtual firewall that controls the traffic for one or more instances.
+				 NACLs work at the subnet level whereas Security Groups work at the instance level.
+

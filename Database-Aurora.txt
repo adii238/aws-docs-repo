@@ -1,0 +1,29 @@
+Database - Aurora 
+#######################
+
+-> Aurora is AWS implementation of an RDS.
+-> You cant install Aurora on an EC2 instance like you can for MySQL. Aurora will only run on AWS infra.
+-> Aurora is a MySQL compatible, relational database engine that combines the speed and availability of high end commercial databases with the simplicity and 
+cost-effectivenes of open source databases.
+-> Aurora provides 5 times better performance than MySQL at a price point one tenth that of a commercial database while delivering similar performance and 
+availability.
+-> Aurora is not under AWS free tier.
+
+Aurora scaling:
+- 2 copies of your data is contained in each AZ, with a minimum of 3 AZ. This means 6 copies of your data.
+- Aurora is designed to transparently handle the loss of upto 2 copies of data without affecting database write availability and upto 3 copies without affecting 
+read availability.
+- Aurora storage is also self healing. Data blocks and disks are continuously scanned for errors and repaired automatically.
+
+2 types of replicas are available 
+- Aurora replicas (currently 15)
+- MySQL Read replicas (currently 5) 
+
+Dynamo Db vs Aurora:
+- Dynamo DB offers push button scaling, means you can scale your database on the fly, without any downtime.
+- RDS is not so easy and you usually have to use a bigger instance size or to add a read replica.
+
+
+
+ 
+
