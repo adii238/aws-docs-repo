@@ -1,0 +1,43 @@
+Step 1. Shutdown your VM which you want to migrate into AWS EC2.
+
+Step 2. Select the VM (CentOS-VM), Go to File and Export to OVF.
+
+Step 3. Create a S3 Bucket and upload the VMWare disk file (.vmdk file).
+
+Step 4. Select a AMI which includes AWS command line tools (Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type) and launch a instance.
+
+Step 5. Using IAM, Create a user having access type "Programmatic access" and add permissions Administrator  Access.
+
+Step 6. Login to Linux Instance using Programmatic access.
+
+Step 7. Create an IAM role named vmimport. Login to docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html and follow the steps.
+
+Step 8. # Set the metadata,
+
+echo '[
+
+  {
+
+    "Description": "centosv7",
+
+    "Format": "vmdk",
+
+    "UserBucket": {
+
+        "S3Bucket": "'${bucket_name}'",
+
+        "S3Key": "'${vm_image_name}'"
+
+    }
+
+}]
+
+' > containers.json
+
+Step 9. Begin VM Import
+
+aws ec2 import-image --description "centosv7" --disk-containers "file://containers.json"
+
+Step 10. Check status of VM Import Jobs
+
+aws ec2 describe-import-image-tasks --import-task-ids "import-ami-XXXXXXXXXXXXXXXXXXXXX"
