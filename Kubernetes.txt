@@ -1,0 +1,52 @@
+Kubernetes 
+###############
+
+Kubernetes:
+	- is an open source container orchestration tool originally developed by Google.
+	- Helps you manage containerised applications.
+	- There was a situation where you were running 100s of containers and to manage and keep them in sync we needed
+	  container orchestartion technology like Kubernetes.
+	  
+Features offred by Container orchestration:
+	- High Availability 
+	- Sclability 
+	- Disaster recovery 
+	
+Kubernetes Architecture:
+	- At least 1 master node 
+	- Remaining "Worker" nodes running the Kubelet process 
+	- Each worker node might be running a number of Docker containers 
+	- Master node processes -> 4 processes run on every master node
+		1) API server process -
+				The API server is an entrypoint to the Kubernetes cluster (K8S). 
+				Other processes like "UI", "API" talk to this "API server process".
+				API server process is also acts as the Cluster gateway.
+				This process also acts as the gatekeeper for authentication.
+		2) Controller Manager process (c-m) = Keeps track of whats happening in the cluster. 
+		If a container dies and needs to be restarted then Controller process takes care of that.
+		3) Scheduler process = Responsible for scheduling containers on different nodes.
+		Ensures POD placement.
+		Flow:
+			User requests to schedule a new pod
+			|
+			|
+			Request recieved by API server process, now sends to Scheduler
+			|
+		    |
+			Scheduler (Decides where to put the new pod) 
+			
+						
+		4) ETCD - key value store, contains the status data of each node and each container. Entire cluster state can be recovered using
+		the ETCD snapshot.
+	- Virtual Network 
+	
+	Worker nodes do the actual work.
+	- Each node(worker node) has multiple Pods on it.
+	- 3 Processes must be installed/running on every worker node.
+		1. Container Runtime (should be installed on every node)
+		2. Kubelet process - interacts with both "container" and "node".
+						   - Kubelet starts the pod with a container inside.
+		3. Kube Proxy - also must be installed on every node. 
+					  - Responsible for forwarding requests from Services to POD.
+					  - Has intelligent forwarding logic inside that makes sure that the communication works in a performant way 
+					  with low overhead.
